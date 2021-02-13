@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { Dimensions, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Text, TouchableOpacity, View } from 'react-native'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 import { NavigationParamsList } from '../../types'
@@ -13,8 +13,12 @@ interface CreateLaunchProps {
   navigation: StackNavigationProp<NavigationParamsList>
 }
 
+interface PostDataProps {
+  url: string
+}
+
 const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
-  const windowSize = Dimensions.get('window')
+  const postUrl = 'https://example.com/answer'
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
 
@@ -22,8 +26,28 @@ const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
 
   }
 
-  const onSubmit = () => {
+  const postData = async (url: string, data: Object) => {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow',
+      body: JSON.stringify(data)
+    });
 
+    console.log({response})
+
+    return response.json() // parses JSON response into native JavaScript objects
+  }
+
+  const onSubmit = async () => {
+    postData(postUrl, { name, description })
+      .then(data => console.log(data))
+      .catch((error) => {
+        Alert.alert('Error', 'Unable to create new launch')
+        console.error('Error:', error)
+      })
   }
 
   return (
