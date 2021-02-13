@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, ViewStyle } from 'react-native'
+import styles from './styles'
 
 interface ContainerProps {
   containerStyle?: ViewStyle
@@ -7,7 +8,7 @@ interface ContainerProps {
 
 const Container: React.FC<ContainerProps> = ({ children, containerStyle }) => (
   <View >
-    <View style={{ backgroundColor: 'grey', height: 40 }} />
+    <View style={styles.statusBar} />
 
     <View style={containerStyle}>
       {children}
