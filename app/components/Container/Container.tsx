@@ -7,10 +7,10 @@ interface ContainerProps {
 }
 
 const Container: React.FC<ContainerProps> = ({ children, containerStyle }) => (
-  <View style={{height: Dimensions.get('window').height, backgroundColor: '#FFF'}}>
+  <View style={styles.container}>
     <View style={styles.statusBar} />
 
-    <View style={[styles.container, containerStyle]}>
+    <View style={[styles.childContainer, containerStyle]}>
       {children}
     </View>
   </View>

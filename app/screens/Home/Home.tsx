@@ -114,7 +114,7 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
         style={{
           position: 'absolute', 
           right: 24, 
-          bottom: 24, 
+          bottom: 10,
           height: 40, 
           width: 40, 
           borderWidth: 1, 

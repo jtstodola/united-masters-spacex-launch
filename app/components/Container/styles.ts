@@ -1,8 +1,13 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FFF'
+    height: Dimensions.get('window').height,
+    backgroundColor: '#FFF',
+  },
+  childContainer: {
+    backgroundColor: '#FFF',
+    paddingHorizontal: 24
   },
   statusBar: {
     backgroundColor: 'grey',
