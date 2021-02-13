@@ -1,8 +1,14 @@
+import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
 import { Alert, Dimensions, Image, Linking, Pressable, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { NavigationParamsList } from '../../types'
 
-const Home: React.FC = () => {
+type HomeProps = {
+  navigation: StackNavigationProp<NavigationParamsList>
+}
+
+const Home: React.FC<HomeProps> = ({navigation}) => {
   const apiUrl = 'https://api.spacexdata.com/v3/launches'
   const [launches, setLaunches] = useState([])
   const windowSize = Dimensions.get('window')
@@ -43,7 +49,10 @@ const Home: React.FC = () => {
         {launches && (
           launches.map((launch: any) => {
             return (
-              <Pressable style={{ flexDirection: 'row', marginVertical: 12, flex: 1}}>
+              <Pressable 
+                style={{ flexDirection: 'row', marginVertical: 12, flex: 1}}
+                onPress={() => navigation.navigate('LaunchDetails', {launch})}
+              >
                 {launch.links.flickr_images.length > 0 ? 
                   <Image source={{uri: launch.links.flickr_images[0]}} style={{height: defaultBoxSize, width: defaultBoxSize}} />
                   :

@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { Home } from '../screens'
+import { Home, LaunchDetails } from '../screens'
 
 const Stack = createStackNavigator()
 
@@ -11,6 +11,7 @@ const MainNavigator = () => {
   return (
     <Navigator headerMode="none">
       <Screen name="Home" component={Home} />
+      <Screen name="LaunchDetails" component={LaunchDetails} />
     </Navigator>
   )
 }
