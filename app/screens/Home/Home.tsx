@@ -2,7 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
 import { Alert, Dimensions, Image, Linking, Pressable, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { NavigationParamsList } from '../../types'
+import { LaunchProps, NavigationParamsList } from '../../types'
 
 type HomeProps = {
   navigation: StackNavigationProp<NavigationParamsList>
@@ -40,14 +40,12 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
 
   }, [])
 
-  console.log({launches})
-
   return (
     <View style={{ marginHorizontal: 24}}>
       <Text style={{marginTop: 50, marginBottom: 20, textAlign: 'center', fontSize: 32}}>SpaceX Launch List</Text>
       <ScrollView >
         {launches && (
-          launches.map((launch: any) => {
+          launches.map((launch: LaunchProps) => {
             return (
               <Pressable 
                 style={{ flexDirection: 'row', marginVertical: 12, flex: 1}}
@@ -56,7 +54,15 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
                 {launch.links.flickr_images.length > 0 ? 
                   <Image source={{uri: launch.links.flickr_images[0]}} style={{height: defaultBoxSize, width: defaultBoxSize}} />
                   :
-                  <View style={{height: defaultBoxSize, width: defaultBoxSize, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#000'}}>
+                  <View 
+                    style={{
+                      height: defaultBoxSize, 
+                      width: defaultBoxSize, 
+                      justifyContent: 'center', 
+                      alignItems: 'center', 
+                      borderWidth: 1, 
+                      borderColor: '#000'
+                    }}>
                     <Text style={{textAlign: 'center'}}>No Image</Text>
                   </View>
                 } 
