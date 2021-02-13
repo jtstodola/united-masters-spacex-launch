@@ -15,7 +15,7 @@ import Navigator from './navigation/Navigator'
 const App: () => ReactNode = () => {
   return (
     <NavigationContainer>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <Navigator />
     </NavigationContainer>
   )

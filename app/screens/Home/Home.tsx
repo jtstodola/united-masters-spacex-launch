@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Alert, Dimensions, Image, Linking, Pressable, ScrollView, TouchableOpacity, Text, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { LaunchProps, NavigationParamsList } from '../../types'
+import { Container } from '../../components'
 
 type HomeProps = {
   navigation: StackNavigationProp<NavigationParamsList>
@@ -51,8 +52,8 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
   }, [])
 
   return (
-    <View style={{ marginHorizontal: 24}}>
-      <Text style={{marginTop: 50, marginBottom: 20, textAlign: 'center', fontSize: 32}}>SpaceX Launch List</Text>
+    <Container >
+      <Text style={{paddingTop: 8, marginBottom: 20, textAlign: 'center', fontSize: 32}}>SpaceX Launch List</Text>
       <View style={{height: windowSize.height - 220}}>
         <ScrollView>
           {launches && (
@@ -109,11 +110,11 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
       </View>
 
       <TouchableOpacity 
-        onPress={() => console.log('PRESSING')}
+        onPress={() => navigation.navigate('CreateLaunch')}
         style={{
           position: 'absolute', 
-          right: 0, 
-          bottom: 10, 
+          right: 24, 
+          bottom: 24, 
           height: 40, 
           width: 40, 
           borderWidth: 1, 
@@ -124,7 +125,7 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
       >
         <Icon type='font-awesome' name='plus'/>
       </TouchableOpacity>
-    </View>
+    </Container>
   )
 }
 

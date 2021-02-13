@@ -5,6 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
 
 import { LaunchProps, NavigationParamsList } from '../../types'
+import { Container } from '../../components'
 
 interface LaunchDetailsProps {
   navigation: StackNavigationProp<NavigationParamsList, 'LaunchDetails'>
@@ -44,7 +45,7 @@ const LaunchDetails: React.FC<LaunchDetailsProps> = ({navigation, route}) => {
   const windowSize = Dimensions.get('window')
 
   return (
-    <View style={{marginTop: 50, justifyContent: 'space-between', height: windowSize.height - 60}}>
+    <Container containerStyle={{justifyContent: 'space-between', height: windowSize.height - 50}}>
       <View>
       {launch.links.flickr_images.length > 0 ? 
         <ImageBackground 
@@ -54,12 +55,13 @@ const LaunchDetails: React.FC<LaunchDetailsProps> = ({navigation, route}) => {
             width: windowSize.width, 
           }}
         >
-          <View style={{            
-            height: windowSize.width, 
-            width: windowSize.width, 
-            justifyContent: 'flex-end', 
-            alignItems: 'flex-end',
-            padding: 16, backgroundColor: 'rgba(0, 0, 0, 0.5)'
+          <View 
+            style={{            
+              height: windowSize.width, 
+              width: windowSize.width, 
+              justifyContent: 'flex-end', 
+              alignItems: 'flex-end',
+              padding: 16, backgroundColor: 'rgba(0, 0, 0, 0.5)'
             }}
           >
             <LaunchContent launch={launch} />
@@ -87,7 +89,7 @@ const LaunchDetails: React.FC<LaunchDetailsProps> = ({navigation, route}) => {
         <Icon type='font-awesome' name='chevron-left' size={15} />
         <Text style={{marginLeft: 6, fontSize: 20}}>Back</Text>
       </Pressable>
-    </View>
+    </Container>
   )
 }
 

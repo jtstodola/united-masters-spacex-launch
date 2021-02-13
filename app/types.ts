@@ -1,6 +1,7 @@
 export type NavigationParamsList = {
   Home: undefined
-  LaunchDetails: { launch: any}
+  LaunchDetails: { launch: any }
+  CreateLaunch: undefined
 }
 
 export interface LaunchProps {
