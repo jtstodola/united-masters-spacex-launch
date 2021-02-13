@@ -6,17 +6,18 @@
  * @flow strict-local
  */
 
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { StatusBar } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
 
-import Navigator from './app/navigation/Navigator'
+import Navigator from './navigation/Navigator'
 
-const App = () => {
+const App: () => ReactNode = () => {
   return (
-    <>
+    <NavigationContainer>
       <StatusBar barStyle="dark-content" />
       <Navigator />
-    </>
+    </NavigationContainer>
   )
 }
 
