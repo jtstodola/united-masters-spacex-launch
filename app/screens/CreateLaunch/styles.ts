@@ -47,6 +47,18 @@ const styles = StyleSheet.create({
   clickText: {
     textAlign: 'center',
   },
+  
+  inputContainer: {
+    marginVertical: 20
+  },
+  inputField: {
+    height: 32,
+    width: windowSize.width - 48,
+    marginVertical: 8,
+    paddingHorizontal: 8,
+    borderWidth: 1,
+    borderColor: '#000',
+  },
 
   buttonContainer: {
     flexDirection: 'row',

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Dimensions, Text, TouchableOpacity, View } from 'react-native'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
@@ -15,8 +15,14 @@ interface CreateLaunchProps {
 
 const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
   const windowSize = Dimensions.get('window')
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
 
   const addImage = () => {
+
+  }
+
+  const onSubmit = () => {
 
   }
 
@@ -33,9 +39,19 @@ const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <View>
-        <TextInput />
-        <TextInput />
+      <View style={styles.inputContainer}>
+        <TextInput
+          value={name}
+          placeholder='Name...'
+          style={styles.inputField}
+          onChangeText={(value) => setName(value)}
+        />
+        <TextInput
+          value={description}
+          placeholder="Description..."
+          style={styles.inputField}
+          onChangeText={(value) => setDescription(value)}
+        />
       </View>
 
       <View style={styles.buttonContainer}>
@@ -44,7 +60,7 @@ const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
           <Text style={styles.backButtonText}>Back</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.submitButton}>
+        <TouchableOpacity style={styles.submitButton} onPress={onSubmit}>
           <Text style={styles.submitButtonText}>Submit</Text>
         </TouchableOpacity>
       </View>
