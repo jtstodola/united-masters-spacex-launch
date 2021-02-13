@@ -6,10 +6,10 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import { StatusBar } from 'react-native';
+import React from 'react'
+import { StatusBar } from 'react-native'
 
-import Navigator from './app/navigation/Navigator';
+import Navigator from './app/navigation/Navigator'
 
 const App = () => {
   return (
@@ -17,7 +17,7 @@ const App = () => {
       <StatusBar barStyle="dark-content" />
       <Navigator />
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App
