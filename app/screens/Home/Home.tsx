@@ -1,7 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
-import { Alert, Dimensions, Image, Linking, Pressable, Text, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { Alert, Dimensions, Image, Linking, Pressable, ScrollView, TouchableOpacity, Text, View } from 'react-native'
+import { Icon } from 'react-native-elements'
 import { LaunchProps, NavigationParamsList } from '../../types'
 
 type HomeProps = {
@@ -11,8 +11,15 @@ type HomeProps = {
 const Home: React.FC<HomeProps> = ({navigation}) => {
   const apiUrl = 'https://api.spacexdata.com/v3/launches'
   const [launches, setLaunches] = useState([])
+  const [page, setPage] = useState(0)
+  const [pageNumbers, setPageNumbers] = useState<Array<number>>([])
   const windowSize = Dimensions.get('window')
   const defaultBoxSize = windowSize.width * .25
+  const startingLaunch = page * 5
+
+  const handlePagination = (currentPageNumber: number) => {
+    setPage(currentPageNumber)
+  }
 
   const handleLinkPress = async (url: string) => {
     const supported = await Linking.canOpenURL(url)
@@ -31,7 +38,10 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
         redirect: 'follow'
       }).then(response => response.json())
       .then(result => {
+        const numberOfPages = Math.ceil(result.length / 5)
+
         setLaunches(result)
+        setPageNumbers([...Array(numberOfPages).keys()])
       })
       .catch(error => console.log('error', error));
     }
@@ -43,45 +53,77 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
   return (
     <View style={{ marginHorizontal: 24}}>
       <Text style={{marginTop: 50, marginBottom: 20, textAlign: 'center', fontSize: 32}}>SpaceX Launch List</Text>
-      <ScrollView >
-        {launches && (
-          launches.map((launch: LaunchProps) => {
-            return (
-              <Pressable 
-                style={{ flexDirection: 'row', marginVertical: 12, flex: 1}}
-                onPress={() => navigation.navigate('LaunchDetails', {launch})}
-              >
-                {launch.links.flickr_images.length > 0 ? 
-                  <Image source={{uri: launch.links.flickr_images[0]}} style={{height: defaultBoxSize, width: defaultBoxSize}} />
-                  :
-                  <View 
-                    style={{
-                      height: defaultBoxSize, 
-                      width: defaultBoxSize, 
-                      justifyContent: 'center', 
-                      alignItems: 'center', 
-                      borderWidth: 1, 
-                      borderColor: '#000'
-                    }}>
-                    <Text style={{textAlign: 'center'}}>No Image</Text>
+      <View style={{height: windowSize.height - 220}}>
+        <ScrollView>
+          {launches && (
+            launches.slice(startingLaunch, startingLaunch + 5).map((launch: LaunchProps) => {
+              return (
+                <Pressable
+                  key={`${launch.flight_number}-${launch.mission_name}`}
+                  style={{ flexDirection: 'row', marginVertical: 12, flex: 1}}
+                  onPress={() => navigation.navigate('LaunchDetails', {launch})}
+                >
+                  {launch.links.flickr_images.length > 0 ? 
+                    <Image source={{uri: launch.links.flickr_images[0]}} style={{height: defaultBoxSize, width: defaultBoxSize}} />
+                    :
+                    <View 
+                      style={{
+                        height: defaultBoxSize, 
+                        width: defaultBoxSize, 
+                        justifyContent: 'center', 
+                        alignItems: 'center', 
+                        borderWidth: 1, 
+                        borderColor: '#000'
+                      }}>
+                      <Text style={{textAlign: 'center'}}>No Image</Text>
+                    </View>
+                  } 
+                  <View style={{flex: 3}}>
+                    <Text style={{marginLeft: 8, marginVertical: 4}}>{launch.mission_name}</Text>
+
+                    {launch.links.mission_patch_small && (
+                      <Pressable onPress={() => handleLinkPress(launch.links.mission_patch_small)}>
+                        <Text style={{marginLeft: 8, marginVertical: 4, color: 'blue'}}>{launch.links.mission_patch_small}</Text>
+                      </Pressable>
+                    )}
+
+                    <Text style={{marginLeft: 8, marginVertical: 4}}>{launch.details}</Text>
                   </View>
-                } 
-                <View style={{flex: 3}}>
-                  <Text style={{marginLeft: 8, marginVertical: 4}}>{launch.mission_name}</Text>
+                </Pressable>
+              )
+            })
+          )}
+        </ScrollView>
+      </View>
 
-                  {launch.links.mission_patch_small && (
-                    <Pressable onPress={() => handleLinkPress(launch.links.mission_patch_small)}>
-                      <Text style={{marginLeft: 8, marginVertical: 4, color: 'blue'}}>{launch.links.mission_patch_small}</Text>
-                    </Pressable>
-                  )}
-
-                  <Text style={{marginLeft: 8, marginVertical: 4}}>{launch.details}</Text>
-                </View>
-              </Pressable>
+      <View style={{ minHeight: 40, marginBottom: 50 }}>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginTop: 12, maxWidth: windowSize.width - 48}}>
+          {pageNumbers.map((pageNumber) => {
+            return(
+              <TouchableOpacity key={pageNumber} style={{marginHorizontal: 6}} onPress={() => handlePagination(pageNumber)}>
+                <Text style={{textDecorationLine: 'underline', textAlign: 'center'}}>{pageNumber + 1}</Text>
+              </TouchableOpacity>
             )
-          })
-        )}
-      </ScrollView>
+          })}
+        </View>
+      </View>
+
+      <TouchableOpacity 
+        onPress={() => console.log('PRESSING')}
+        style={{
+          position: 'absolute', 
+          right: 0, 
+          bottom: 10, 
+          height: 40, 
+          width: 40, 
+          borderWidth: 1, 
+          borderRadius: 200, 
+          backgroundColor: 'grey', 
+          padding: 8,
+        }}
+      >
+        <Icon type='font-awesome' name='plus'/>
+      </TouchableOpacity>
     </View>
   )
 }
