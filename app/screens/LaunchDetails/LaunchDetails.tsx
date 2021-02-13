@@ -1,7 +1,9 @@
+import React from 'react'
+import {Alert, Dimensions, ImageBackground, Linking, Pressable, Text, View} from 'react-native'
 import { RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React from 'react'
-import {Alert, Dimensions, Image, ImageBackground, Linking, Pressable, Text, View} from 'react-native'
+import { Icon } from 'react-native-elements'
+
 import { LaunchProps, NavigationParamsList } from '../../types'
 
 interface LaunchDetailsProps {
@@ -41,9 +43,6 @@ const LaunchDetails: React.FC<LaunchDetailsProps> = ({navigation, route}) => {
   const {params: {launch}} = route
   const windowSize = Dimensions.get('window')
 
-
-
-
   return (
     <View style={{marginTop: 50, justifyContent: 'space-between', height: windowSize.height - 60}}>
       <View>
@@ -73,9 +72,7 @@ const LaunchDetails: React.FC<LaunchDetailsProps> = ({navigation, route}) => {
             width: windowSize.width, 
             justifyContent: 'flex-end', 
             alignItems: 'flex-end', 
-            borderWidth: 1, 
-            borderColor: '#999',
-            backgroundColor: '#CCC',
+            backgroundColor: '#3b3b3b',
             padding: 16
           }}
         >
@@ -83,8 +80,12 @@ const LaunchDetails: React.FC<LaunchDetailsProps> = ({navigation, route}) => {
         </View>
       } 
       </View>
-      <Pressable onPress={() => navigation.goBack()} style={{marginLeft: 24, marginBottom: 24}}>
-        <Text>Back</Text>
+      <Pressable 
+        onPress={() => navigation.goBack()}
+        style={{marginLeft: 24, marginBottom: 24, flexDirection: 'row', alignItems: 'center'}}
+      >
+        <Icon type='font-awesome' name='chevron-left' size={15} />
+        <Text style={{marginLeft: 6, fontSize: 20}}>Back</Text>
       </Pressable>
     </View>
   )

@@ -4,6 +4,7 @@ export type NavigationParamsList = {
 }
 
 export interface LaunchProps {
+  flight_number: number
   mission_name: string
   links: {
     mission_patch_small: string
