@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { Alert, Text, TouchableOpacity, View } from 'react-native'
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { Alert, Image, Text, TouchableOpacity, View } from 'react-native'
+import ActionSheet from "react-native-actions-sheet"
+import { launchCamera, launchImageLibrary, MediaType } from 'react-native-image-picker';
 
 import { NavigationParamsList } from '../../types'
 import { Container } from '../../components'
@@ -21,8 +22,50 @@ const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
   const postUrl = 'https://example.com/answer'
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  const [imageLocation, setImageLocation] = useState<string | undefined>()
+  const actionSheetRef = useRef<ActionSheet>(null)
 
-  const addImage = () => {
+  const handleLaunchCamera = () => {
+    const options = {
+      mediaType: 'photo' as MediaType,
+      maxWidth: 1024,
+      maxHeight: 1024,
+      saveToPhotos: false,
+    }
+
+    try {
+      launchCamera(options, (response) => {
+        actionSheetRef.current?.hide()
+        console.log({response})
+      })
+    } catch (error) {
+      Alert.alert('Error', error)
+      console.log(error)
+    }
+
+  }
+
+  const handleLaunchImageLibrary = () => {
+    const options = {
+      mediaType: 'photo' as MediaType,
+      maxWidth: 1024,
+      maxHeight: 1024,
+      saveToPhotos: false,
+    }
+
+    try {
+      launchImageLibrary(options, (response) => {
+        actionSheetRef.current?.hide()
+
+        if (response.uri) {
+          setImageLocation(response.uri)
+        }
+        console.log({response})
+      })
+    } catch (error) {
+      Alert.alert('Error', error)
+      console.log(error)
+    }
 
   }
 
@@ -36,13 +79,11 @@ const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
       body: JSON.stringify(data)
     });
 
-    console.log({response})
-
-    return response.json() // parses JSON response into native JavaScript objects
+    return response.json()
   }
 
   const onSubmit = async () => {
-    postData(postUrl, { name, description })
+    postData(postUrl, { name, description, image: imageLocation})
       .then(data => console.log(data))
       .catch((error) => {
         Alert.alert('Error', 'Unable to create new launch')
@@ -53,14 +94,23 @@ const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
   return (
     <Container containerStyle={styles.mainContainer}>
       <View>
-        <TouchableOpacity style={styles.xContainer} >
-          <View style={styles.xRight} />
-          <View style={styles.xLeft} />
-        </TouchableOpacity>
+        {imageLocation ? (
+          <Image source={{uri: imageLocation}} style={styles.image} />
+        ) : (
+          <>
+            <TouchableOpacity style={styles.xContainer} >
+              <View style={styles.xRight} />
+              <View style={styles.xLeft} />
+            </TouchableOpacity>
 
-        <TouchableOpacity style={styles.addButton}>
-          <Text style={styles.clickText}>Click to Add</Text>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={() => actionSheetRef.current?.show()}
+            >
+              <Text style={styles.clickText}>Click to Add</Text>
+            </TouchableOpacity>
+          </>
+        )}
       </View>
 
       <View style={styles.inputContainer}>
@@ -89,6 +139,18 @@ const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
+      <ActionSheet ref={actionSheetRef} containerStyle={styles.actionSheetContainer}>
+        <TouchableOpacity
+          style={styles.actionSheetButton}
+          onPress={handleLaunchCamera}
+        >
+          <Text style={styles.actionSheetText}>Launch Camera</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.actionSheetButton} onPress={handleLaunchImageLibrary}>
+          <Text style={styles.actionSheetText}>Launch Image Library</Text>
+        </TouchableOpacity>
+      </ActionSheet>
     </Container>
   )
 }

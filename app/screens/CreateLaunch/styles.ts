@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native'
+import { Dimensions, ImageBackgroundBase, StyleSheet } from 'react-native'
 
 
 const windowSize = Dimensions.get('window')
@@ -6,6 +6,12 @@ const windowSize = Dimensions.get('window')
 const styles = StyleSheet.create({
   mainContainer: {
     paddingHorizontal: 24
+  },
+  image: {
+    alignSelf: 'center',
+    marginTop: 20,
+    width: windowSize.width * .5,
+    height: windowSize.width * .5,
   },
   xContainer: {
     alignSelf: 'center',
@@ -62,7 +68,7 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   backButton: {
     flex: 1,
@@ -86,7 +92,22 @@ const styles = StyleSheet.create({
   },
   submitButtonText: {
     textAlign: 'center'
-  }
+  },
+
+  actionSheetContainer: {
+    paddingBottom: 20,
+    width: windowSize.width - 48,
+    backgroundColor: '#3B3B3B'
+  },
+  actionSheetButton: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'grey'
+  },
+  actionSheetText: {
+    marginVertical: 12,
+    textAlign: 'center',
+    color: '#FFF'
+  },
 })
 
 export default styles
