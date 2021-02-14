@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
   },
   statusBar: {
     backgroundColor: 'grey',
-    height: 40
-  }
+    height: 40,
+  },
 })
 
 export default styles
