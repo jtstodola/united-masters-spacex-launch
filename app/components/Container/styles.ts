@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
   },
   childContainer: {
     backgroundColor: '#FFF',
-    paddingHorizontal: 24
   },
   statusBar: {
     backgroundColor: 'grey',

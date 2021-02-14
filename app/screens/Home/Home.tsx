@@ -1,6 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
-import { Alert, Dimensions, Image, Linking, Pressable, ScrollView, TouchableOpacity, Text, View } from 'react-native'
+import { Alert, Dimensions, Image, Linking, Pressable, ScrollView, TouchableOpacity, Text, View, Platform } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { LaunchProps, NavigationParamsList } from '../../types'
 import { Container } from '../../components'
@@ -54,7 +54,7 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
   return (
     <Container >
       <Text style={{paddingTop: 8, marginBottom: 20, textAlign: 'center', fontSize: 32}}>SpaceX Launch List</Text>
-      <View style={{height: windowSize.height - 220}}>
+      <View style={{height: windowSize.height - 220, paddingHorizontal: 24}}>
         <ScrollView>
           {launches && (
             launches.slice(startingLaunch, startingLaunch + 5).map((launch: LaunchProps) => {
@@ -97,7 +97,7 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
         </ScrollView>
       </View>
 
-      <View style={{ minHeight: 40, marginBottom: 50 }}>
+      <View style={{ minHeight: 40, marginBottom: 50, paddingHorizontal: 24 }}>
         <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginTop: 12, maxWidth: windowSize.width - 48}}>
           {pageNumbers.map((pageNumber) => {
             return(
@@ -114,7 +114,7 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
         style={{
           position: 'absolute', 
           right: 24, 
-          bottom: 10,
+          bottom: Platform.OS === 'android' ? 0 : 10,
           height: 40, 
           width: 40, 
           borderWidth: 1, 
