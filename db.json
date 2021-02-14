@@ -23,37 +23,12 @@
       }
     },
     {
-      "missionName": "",
-      "details": "",
-      "id": 2
-    },
-    {
-      "missionName": "",
-      "details": "",
-      "id": 3
-    },
-    {
-      "missionName": "",
-      "details": "",
-      "id": 4
-    },
-    {
-      "missionName": "",
-      "details": "",
-      "id": 5
-    },
-    {
-      "missionName": "This Awesome Mission to Mars",
-      "details": "",
-      "id": 6
-    },
-    {
       "missionName": "This Awesome Mission to Jupiter",
       "details": "We went, we saw, we conquered",
       "links": {
         "image": "file:///Users/JessicaStodola/Library/Developer/CoreSimulator/Devices/D587C60C-67C1-45AB-89C9-2D0923FAE5C5/data/Containers/Data/Application/82A427C2-8E09-46C2-A89B-3F64CE81CEB2/tmp/709908C4-D69C-44B5-A10C-F56603BDB5B2.jpg"
       },
-      "id": 7
+      "id": 2
     }
   ],
   "comments": [
