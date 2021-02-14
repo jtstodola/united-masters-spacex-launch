@@ -1,61 +1,54 @@
 import { Dimensions, ImageBackgroundBase, StyleSheet } from 'react-native'
 
-
 const windowSize = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   mainContainer: {
-    paddingHorizontal: 24
+    paddingHorizontal: 24,
   },
   image: {
     alignSelf: 'center',
     marginTop: 20,
-    width: windowSize.width * .5,
-    height: windowSize.width * .5,
+    width: windowSize.width * 0.5,
+    height: windowSize.width * 0.5,
   },
   xContainer: {
     alignSelf: 'center',
     marginTop: 20,
-    position: 'relative', 
+    position: 'relative',
     borderWidth: 1,
-    width: windowSize.width * .5,
-    height: windowSize.width * .5,
+    width: windowSize.width * 0.5,
+    height: windowSize.width * 0.5,
   },
   xRight: {
     position: 'absolute',
     alignSelf: 'center',
-    marginTop: windowSize.width * .25,
+    marginTop: windowSize.width * 0.25,
     borderWidth: 1,
     borderColor: '#000',
-    width: windowSize.width * .75,
+    width: windowSize.width * 0.75,
     height: 1,
-    transform: [
-      { rotateY: "38deg" },
-      { rotateZ: "38deg" }
-    ]
+    transform: [{ rotateY: '38deg' }, { rotateZ: '38deg' }],
   },
   xLeft: {
     position: 'absolute',
     alignSelf: 'center',
-    marginTop: windowSize.width * .25,
+    marginTop: windowSize.width * 0.25,
     borderWidth: 1,
     borderColor: '#000',
-    width: windowSize.width * .75,
+    width: windowSize.width * 0.75,
     height: 1,
-    transform: [
-      { rotateY: "-38deg" },
-      { rotateZ: "-38deg" }
-    ]
+    transform: [{ rotateY: '-38deg' }, { rotateZ: '-38deg' }],
   },
   addButton: {
-    marginTop: 12
+    marginTop: 12,
   },
   clickText: {
     textAlign: 'center',
   },
-  
+
   inputContainer: {
-    marginVertical: 20
+    marginVertical: 20,
   },
   inputField: {
     height: 32,
@@ -67,7 +60,7 @@ const styles = StyleSheet.create({
     borderColor: '#000',
   },
   errorField: {
-    color: '#c40202'
+    color: '#c40202',
   },
 
   buttonContainer: {
@@ -77,11 +70,11 @@ const styles = StyleSheet.create({
   backButton: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   backButtonText: {
     marginLeft: 8,
-    fontSize: 20
+    fontSize: 20,
   },
   submitButton: {
     flex: 4,
@@ -92,25 +85,25 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowRadius: 2,
     shadowOpacity: 0.5,
-    shadowOffset: {width: 2, height: 2}
+    shadowOffset: { width: 2, height: 2 },
   },
   submitButtonText: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
 
   actionSheetContainer: {
     paddingBottom: 20,
     width: windowSize.width - 48,
-    backgroundColor: '#3B3B3B'
+    backgroundColor: '#3B3B3B',
   },
   actionSheetButton: {
     borderBottomWidth: 1,
-    borderBottomColor: 'grey'
+    borderBottomColor: 'grey',
   },
   actionSheetText: {
     marginVertical: 12,
     textAlign: 'center',
-    color: '#FFF'
+    color: '#FFF',
   },
 })
 
