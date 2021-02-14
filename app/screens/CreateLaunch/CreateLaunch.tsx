@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Alert, Image, Text, TouchableOpacity, View } from 'react-native'
 import ActionSheet from "react-native-actions-sheet"
-import { launchCamera, launchImageLibrary, MediaType } from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary, MediaType } from 'react-native-image-picker'
 
 import { NavigationParamsList } from '../../types'
 import { Container } from '../../components'
@@ -19,10 +19,11 @@ interface PostDataProps {
 }
 
 const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
-  const postUrl = 'https://example.com/answer'
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
+  const postUrl = 'http://localhost:3000/launches'
+  const [missionName, setMissionName] = useState('')
+  const [details, setDetails] = useState('')
   const [imageLocation, setImageLocation] = useState<string | undefined>()
+  const [error, settError] = useState(false)
   const actionSheetRef = useRef<ActionSheet>(null)
 
   const handleLaunchCamera = () => {
@@ -83,13 +84,31 @@ const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
   }
 
   const onSubmit = async () => {
-    postData(postUrl, { name, description, image: imageLocation})
-      .then(data => console.log(data))
+    if (!missionName) return settError(true)
+    const data = { 
+      missionName, 
+      details, 
+      links: {
+        image: imageLocation
+      }
+    }
+
+    postData(
+      postUrl, 
+      data)
+      .then(data => {
+        console.log(data)
+        Alert.alert('SUccess', 'Your launch was successfully created.')
+      })
       .catch((error) => {
         Alert.alert('Error', 'Unable to create new launch')
         console.error('Error:', error)
       })
   }
+
+  useEffect(() => {
+    if (missionName !== '') settError(false)
+  },[missionName])
 
   return (
     <Container containerStyle={styles.mainContainer}>
@@ -98,7 +117,7 @@ const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
           <Image source={{uri: imageLocation}} style={styles.image} />
         ) : (
           <>
-            <TouchableOpacity style={styles.xContainer} >
+            <TouchableOpacity style={styles.xContainer} onPress={() => actionSheetRef.current?.show()}>
               <View style={styles.xRight} />
               <View style={styles.xLeft} />
             </TouchableOpacity>
@@ -115,16 +134,17 @@ const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
 
       <View style={styles.inputContainer}>
         <TextInput
-          value={name}
+          value={missionName}
           placeholder='Name...'
           style={styles.inputField}
-          onChangeText={(value) => setName(value)}
+          onChangeText={(value) => setMissionName(value)}
         />
+        {error && (<Text style={{color: 'red'}}>Mission Name is required</Text>)}
         <TextInput
-          value={description}
+          value={details}
           placeholder="Description..."
           style={styles.inputField}
-          onChangeText={(value) => setDescription(value)}
+          onChangeText={(value) => setDetails(value)}
         />
       </View>
 
