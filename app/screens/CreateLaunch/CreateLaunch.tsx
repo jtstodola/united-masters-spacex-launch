@@ -41,8 +41,6 @@ const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
         if (response.uri) {
           setImageLocation(response.uri)
         }
-
-        console.log({response})
       })
     } catch (error) {
       Alert.alert('Error', error)
@@ -66,7 +64,6 @@ const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
         if (response.uri) {
           setImageLocation(response.uri)
         }
-        console.log({response})
       })
     } catch (error) {
       Alert.alert('Error', error)
