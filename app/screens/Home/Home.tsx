@@ -114,7 +114,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
       </View>
 
       <View style={styles.paginationContainer}>
-        <View style={styles.paginationContainer}>
+        <View style={styles.pageContainer}>
           {pageNumbers.map((pageNumber) => {
             return (
               <TouchableOpacity
