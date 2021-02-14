@@ -66,6 +66,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#000',
   },
+  errorField: {
+    color: '#c40202'
+  },
 
   buttonContainer: {
     flexDirection: 'row',

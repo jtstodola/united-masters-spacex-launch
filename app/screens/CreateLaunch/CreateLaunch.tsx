@@ -142,7 +142,7 @@ const CreateLaunch: React.FC<CreateLaunchProps> = ({ navigation }) => {
           style={styles.inputField}
           onChangeText={(value) => setMissionName(value)}
         />
-        {error && (<Text style={{color: 'red'}}>Mission Name is required</Text>)}
+        {error && (<Text style={styles.errorField}>Mission Name is required</Text>)}
         <TextInput
           value={details}
           placeholder="Description..."
