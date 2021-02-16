@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   pageText: {
     textDecorationLine: 'underline',
     textAlign: 'center',
+    paddingHorizontal: 6,
   },
   createLaunchButton: {
     position: 'absolute',
